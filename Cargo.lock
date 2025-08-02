@@ -3,6 +3,29 @@
 version = 4
 
 [[package]]
+name = "array-init"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d62b7694a562cdf5a74227903507c56ab2cc8bdd1f781ed5cb4cf9c9f810bfc"
+
+[[package]]
+name = "bytemuck"
+version = "1.23.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c76a5792e44e4abe34d3abf15636779261d45a7450612059293d1d2cfc63422"
+
+[[package]]
+name = "mesocarp"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d707b2d6e8fd253599d7b76690026297340165a8872f7bb24e5dca4488ec31f"
+dependencies = [
+ "array-init",
+ "bytemuck",
+ "thiserror",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.95"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -24,6 +47,8 @@ dependencies = [
 name = "shikka"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
+ "mesocarp",
  "thiserror",
 ]
 

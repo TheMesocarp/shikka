@@ -5,3 +5,5 @@ edition = "2024"
 
 [dependencies]
 thiserror = "2.0.12"
+bytemuck = "1.23.1"
+mesocarp = "0.9.3"

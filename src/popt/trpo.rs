@@ -1,12 +1,12 @@
-use crate::{env::{ActionSpace, Environment, StateSpace}, popt::Policy};
+use bytemuck::{Pod, Zeroable};
 
-pub struct TRPO<State, Action, F, T> 
+use crate::{env::Environment, popt::Policy};
+
+pub struct TRPO<State: Copy + Pod + Zeroable, Action: Copy + Pod + Zeroable, F, T> 
 where 
     F: Fn(&State) -> f32,
     T: Fn(&State, &Action) -> State 
 {
     env: Environment<State, Action, F, T>,
     policy: Box<dyn Policy<State, Action>>,
-    states: Box<dyn StateSpace<State = State>>,
-    actions: Box<dyn ActionSpace<Action = Action>>
 }
