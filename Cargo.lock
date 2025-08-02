@@ -15,6 +15,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c76a5792e44e4abe34d3abf15636779261d45a7450612059293d1d2cfc63422"
 
 [[package]]
+name = "fastrand"
+version = "2.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
+
+[[package]]
 name = "mesocarp"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -48,6 +54,7 @@ name = "shikka"
 version = "0.1.0"
 dependencies = [
  "bytemuck",
+ "fastrand",
  "mesocarp",
  "thiserror",
 ]

@@ -1,6 +1,6 @@
 use bytemuck::{Pod, Zeroable};
 
-use crate::{env::Environment, popt::Policy};
+use crate::{env::Environment, poptim::Policy};
 
 pub struct TRPO<State: Copy + Pod + Zeroable, Action: Copy + Pod + Zeroable, F, T> 
 where 
