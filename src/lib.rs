@@ -1,6 +1,6 @@
 
 pub mod env;
-pub mod pg;
+pub mod actors;
 pub mod critics;
 pub mod sampler;
 

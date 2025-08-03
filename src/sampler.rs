@@ -2,7 +2,7 @@ use bytemuck::{Pod, Zeroable};
 
 use crate::{
     error::{ShikkaError, ShikkaResult},
-    pg::Policy,
+    actors::Policy,
 };
 
 pub(crate) fn epsilon_greedy_policy<

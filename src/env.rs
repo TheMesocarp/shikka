@@ -3,7 +3,7 @@ use mesocarp::logging::journal::Journal;
 
 use crate::{
     error::{ShikkaError, ShikkaResult},
-    pg::Policy,
+    actors::Policy,
     sampler::Strategy,
 };
 
