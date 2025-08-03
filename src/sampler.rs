@@ -1,8 +1,8 @@
 use bytemuck::{Pod, Zeroable};
 
 use crate::{
-    error::{ShikkaError, ShikkaResult},
     actors::Policy,
+    error::{ShikkaError, ShikkaResult},
 };
 
 pub(crate) fn epsilon_greedy_policy<
@@ -15,7 +15,7 @@ pub(crate) fn epsilon_greedy_policy<
     mut valid: Vec<Action>,
     epsilon: f32,
 ) -> ShikkaResult<Action> {
-    if epsilon < 0.0 || epsilon > 1.0 {
+    if !(0.0..1.0).contains(&epsilon) {
         return Err(ShikkaError::EpsilonOutofBounds);
     }
     let rand = fastrand::i32(..10i32.pow(6));
@@ -23,11 +23,11 @@ pub(crate) fn epsilon_greedy_policy<
     if rand < epsilon {
         let mut out = valid.pop().ok_or(ShikkaError::NoValidActionsProvided)?;
         let mut old = p.prob(state, &out);
-        for i in 0..valid.len() {
-            let prob = p.prob(state, &valid[i]);
+        for act in &valid {
+            let prob = p.prob(state, act);
             if prob > old {
                 old = prob;
-                out = valid[i]
+                out = *act
             }
         }
         return Ok(out);
@@ -47,7 +47,7 @@ pub(crate) fn epsilon_greedy_reward<
     reward_fn: &R,
     transition_fn: &T,
 ) -> ShikkaResult<Action> {
-    if epsilon < 0.0 || epsilon > 1.0 {
+    if !(0.0..1.0).contains(&epsilon) {
         return Err(ShikkaError::EpsilonOutofBounds);
     }
     let rand = fastrand::i32(..10i32.pow(6));
@@ -55,11 +55,11 @@ pub(crate) fn epsilon_greedy_reward<
     if rand < epsilon {
         let mut out = valid.pop().ok_or(ShikkaError::NoValidActionsProvided)?;
         let mut old = (reward_fn)(&(transition_fn)(state, &out));
-        for i in 0..valid.len() {
-            let new = (reward_fn)(&(transition_fn)(state, &valid[i]));
+        for act in &valid {
+            let new = (reward_fn)(&(transition_fn)(state, act));
             if new > old {
                 old = new;
-                out = valid[i]
+                out = *act
             }
         }
         let _ = valid;
@@ -95,7 +95,9 @@ impl Strategy {
     ) -> ShikkaResult<Action> {
         Ok(match self {
             Strategy::EpsilonGreedy(epsilon, mode) => match mode {
-                GreedyMode::Reward => epsilon_greedy_reward(state, valid, *epsilon, reward_fn, transition_fn)?,
+                GreedyMode::Reward => {
+                    epsilon_greedy_reward(state, valid, *epsilon, reward_fn, transition_fn)?
+                }
                 GreedyMode::Policy => epsilon_greedy_policy(policy, state, valid, *epsilon)?,
             },
             Strategy::Custom => policy.sample(state, valid),
