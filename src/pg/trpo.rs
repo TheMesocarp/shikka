@@ -1,6 +1,6 @@
 use bytemuck::{Pod, Zeroable};
 
-use crate::{env::Environment, poptim::Policy};
+use crate::{env::Environment, pg::Policy};
 
 pub struct TRPO<State: Copy + Pod + Zeroable, Action: Copy + Pod + Zeroable, F, T> 
 where 
@@ -9,4 +9,5 @@ where
 {
     env: Environment<State, Action, F, T>,
     policy: Box<dyn Policy<State, Action>>,
+    
 }
