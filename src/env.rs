@@ -2,8 +2,8 @@ use bytemuck::{Pod, Zeroable};
 use mesocarp::logging::journal::Journal;
 
 use crate::{
-    error::{ShikkaError, ShikkaResult},
     actors::Policy,
+    error::{ShikkaError, ShikkaResult},
     sampler::Strategy,
 };
 
@@ -49,7 +49,7 @@ where
         reward_fn: F,
         transition_fn: T,
     ) -> ShikkaResult<Self> {
-        if discount < 0.0 || discount > 1.0 {
+        if !(0.0..=1.0).contains(&discount) {
             return Err(ShikkaError::DiscountFactorOutofBounds);
         }
         let state_space = Box::new(states);

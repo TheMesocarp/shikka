@@ -1,7 +1,15 @@
 [package]
+
+authors = ["Mesocarp"]
+description = "An ergonomic reinforcement learning library for building, composing, and training policy optimization models over generic state and action spaces."
+edition = "2021"
+homepage = "https://github.com/TheMesocarp/shikka"
+keywords = ["feedback", "actor-critic", "reinforcement", "rl", "model-free"]
+license = "LGPL-2.1"
 name = "shikka"
+readme = "README.md"
+repository = "https://github.com/TheMesocarp/shikka"
 version = "0.1.0"
-edition = "2024"
 
 [dependencies]
 thiserror = "2.0.12"

@@ -15,8 +15,13 @@ pub trait ActionValue<State: Copy + Pod + Zeroable, Action: Copy + Pod + Zeroabl
     fn q_value(&self, state: &State, action: &Action) -> f32;
     fn update(&mut self, state: &State, action: &Action, target: f32) -> ShikkaResult<()>;
     fn greedy(&self, state: &State, valid_actions: &[Action]) -> Option<Action> {
-        valid_actions.iter()
-            .max_by(|a, b| self.q_value(state, a).partial_cmp(&self.q_value(state, b)).unwrap())
+        valid_actions
+            .iter()
+            .max_by(|a, b| {
+                self.q_value(state, a)
+                    .partial_cmp(&self.q_value(state, b))
+                    .unwrap()
+            })
             .copied()
     }
 }
